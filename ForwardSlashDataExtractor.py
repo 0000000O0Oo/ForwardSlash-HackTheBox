@@ -24,11 +24,10 @@ class Target:
     def __init__(self, cookie):
         #printBanner()
         self.cookie = cookie
-    
+
     #Functions
     def printPayload(self, payload):
         print(self.cookie)
-        print(f"Using Cookie : {self.cookieSessID}")
         print(f"Target : {self.targetLink}")
         print(f"Payload : {payload}")
 
